@@ -9,6 +9,25 @@ class Contact {
         this.phone = phone;
     }
 
+    updateContactHandler() {
+        console.log(this.name);
+    }
+
+    deleteContactHandler() {
+        let contactIndex = 0;
+        for (const contact of contacts) {
+            if (contact.name === this.name) {
+                break;
+            }
+            contactIndex++;
+        }
+        contacts.splice(contactIndex, 1);
+        const listRoot = document.getElementById('contacts');
+        listRoot.children[contactIndex].remove();
+        
+        console.log(this.name);
+    }
+    
     render() {
         const randomID = Math.random().toString();
         const newContactElement = document.createElement('div');
@@ -20,15 +39,19 @@ class Contact {
         <p>${this.address.state}</p>
         <p>${this.address.zip}</p>
         <p>${this.phone}</p>
-        <button id="deleteContactButton" onclick="deleteContactHandler('${this.name}')">Delete</button>
+        <button class= "deleteContactButton" id="deleteContactButton${randomID}">Delete</button>
         <button class="updateContactButton" id="updateContactButton${randomID}">Update</button>
       </div>
     `;
         const contactsList = document.getElementById('contacts');
         contactsList.append(newContactElement);
 
-        // const updateContactButton = document.getElementById('updateContactButton' + randomID);
-        // updateContactButton.addEventListener('click', updateContactHandler.bind(null, this.name));
+        const updateContactButton = document.getElementById('updateContactButton' + randomID);
+        updateContactButton.addEventListener('click', this.updateContactHandler.bind(this));
+
+        const deleteContactButton = document.getElementById('deleteContactButton' + randomID);
+        deleteContactButton.addEventListener('click', this.deleteContactHandler.bind(this));
+
     }
 }
 

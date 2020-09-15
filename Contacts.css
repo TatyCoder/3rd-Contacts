@@ -36,7 +36,7 @@ html {
       border-color: rgb(112, 135, 201);  
   }
   
-  #deleteContactButton {
+  .deleteContactButton {
       font-weight: bold;
       color: rgb(116, 163, 233);
       border-radius: 10px;
