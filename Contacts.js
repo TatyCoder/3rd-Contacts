@@ -13,31 +13,15 @@ class Contact {
         console.log(this.name);
     }
 
-    deleteContactHandler() {
-        let contactIndex = 0;
-        for (const contact of contacts) {
-            if (contact.name === this.name) {
-                break;
-            }
-            contactIndex++;
-        }
-        contacts.splice(contactIndex, 1);
-        const listRoot = document.getElementById('contacts');
-        listRoot.children[contactIndex].remove();
-        
-        console.log(this.name);
-    }
-    
     render() {
         const randomID = Math.random().toString();
         const newContactElement = document.createElement('div');
+        const addressHtml = this.address.render();
+
         newContactElement.innerHTML = `
       <div class='contact-element'>
         <b>${this.name}</b>
-        <p>${this.address.street}</p>
-        <p>${this.address.city}</p>
-        <p>${this.address.state}</p>
-        <p>${this.address.zip}</p>
+         ${addressHtml}
         <p>${this.phone}</p>
         <button class= "deleteContactButton" id="deleteContactButton${randomID}">Delete</button>
         <button class="updateContactButton" id="updateContactButton${randomID}">Update</button>
@@ -50,8 +34,7 @@ class Contact {
         updateContactButton.addEventListener('click', this.updateContactHandler.bind(this));
 
         const deleteContactButton = document.getElementById('deleteContactButton' + randomID);
-        deleteContactButton.addEventListener('click', this.deleteContactHandler.bind(this));
-
+        deleteContactButton.addEventListener('click', deleteContactHandler.bind(null, this.name));
     }
 }
 
@@ -66,6 +49,16 @@ class Address {
         this.city = city;
         this.state = state;
         this.zip = zip;
+    }
+
+    render() {
+        const innerHTML = `
+        <p>${this.street}</p>
+        <p>${this.city}</p>
+        <p>${this.state}</p>
+        <p>${this.zip}</p>
+      `;
+      return innerHTML;
     }
 }
 
@@ -89,15 +82,20 @@ const contacts = [
 
 console.log(contacts);
 
-// An alternative way of doing it:
-// const contacts2 = {};
-// const contactsArray = [];
+const deleteContactHandler = (name) => {
+    let contactIndex = 0;
+    for (const contact of contacts) {
+        if (contact.name === name) {
+            break;
+        }
+        contactIndex++;
+    }
+    contacts.splice(contactIndex, 1);
+    const listRoot = document.getElementById('contacts');
+    listRoot.children[contactIndex].remove();
 
-// const myAddress = new Address('Ruby', 'Dawn','Ga', '30534');
-// const myContact = new Contact ('Carl', myAddress, '6785551212');
-// contactsArray.push(myContact);
-// //const contacts2 = {contacts: contactsArray}; or
-// contacts2.contacts = contactsArray;
+    console.log(name);
+}
 
 const showAllContacts = () => {
     for (i = 0; i < contacts.length; i++) {
