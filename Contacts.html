@@ -9,7 +9,8 @@
 
 <body>
     <button id="addNewContactButton">Add New Contact</button>
-    <div style="display:none" id="addForm">
+    <!-- Moved "form" and "actions" inside renderUpdate() in contacts.js: -->
+    <!-- <div style="display:none" id="addForm">
         <form id="form">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" />
@@ -28,9 +29,11 @@
             <button id="cancelAddContactButton">Cancel</button>
             <button id="saveContactButton">Save</button>
         </div>
-    </div>
+    </div> -->
     <h2>Contacts</h2>
     <div id="contacts">
+    </div>
+    <div id="updateForm">
     </div>
 
 </body>

@@ -9,9 +9,45 @@ class Contact {
         this.phone = phone;
     }
 
-    updateContactHandler() {
-        console.log(this.name);
+    renderUpdate() {
+        const updateContactElement = document.createElement('div');
+        updateContactElement.innerHTML = `
+        <div id="addForm">
+        <form id="form">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" value="${this.name}"/>
+            <label for="street">Street</label>
+            <input type="text" name="street" id="street" value="${this.address.street}"/>
+            <label for="city">City</label>
+            <input type="text" name="city" id="city" value="${this.address.city}"/>
+            <label for="state">State</label>
+            <input type="text" name="state" id="state" value="${this.address.state}"/>
+            <label for="zip">Zip Code</label>
+            <input type="text" name="zip" id="zip" value="${this.address.zip}"/>
+            <label for="phone">Phone</label>
+            <input type="text" name="phone" id="phone" value="${this.phone}"/>
+        </form>
+        <div class="actions">
+            <button id="cancelAddContactButton">Cancel</button>
+            <button id="saveContactButton">Save</button>
+        </div>
+    </div>
+    `;
+
+        const updateForm = document.getElementById('updateForm');
+        updateForm.append(updateContactElement);
+
+        // const cancelAddContactButton = document.getElementById('cancelAddContactButton' + randomID);
+        // cancelAddContactButton.addEventListener('click', this.cancelAddContactHandler.bind(this));
+
+        // const saveContactButton = document.getElementById('saveContactButton' + randomID);
+        // saveContactButton.addEventListener('click', saveContactHandler.bind(null, this.name));
+
     }
+
+    // updateContactHandler() {
+    //     console.log(this.name);
+    // }
 
     render() {
         const randomID = Math.random().toString();
@@ -31,7 +67,7 @@ class Contact {
         contactsList.append(newContactElement);
 
         const updateContactButton = document.getElementById('updateContactButton' + randomID);
-        updateContactButton.addEventListener('click', this.updateContactHandler.bind(this));
+        updateContactButton.addEventListener('click', this.renderUpdate.bind(this));
 
         const deleteContactButton = document.getElementById('deleteContactButton' + randomID);
         deleteContactButton.addEventListener('click', deleteContactHandler.bind(null, this.name));
@@ -58,7 +94,7 @@ class Address {
         <p>${this.state}</p>
         <p>${this.zip}</p>
       `;
-      return innerHTML;
+        return innerHTML;
     }
 }
 

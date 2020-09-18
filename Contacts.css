@@ -13,6 +13,9 @@ html {
     flex-direction: column;
     padding: 1rem;
     color: rgb(72, 94, 156);
+    margin: 1rem 0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.178);
+    border-radius: 10px;
   }
   
   #addNewContactButton {
