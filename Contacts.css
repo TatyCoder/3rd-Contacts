@@ -25,14 +25,14 @@ html {
       border-color: rgb(112, 135, 201);
   }
   
-  #cancelAddContactButton {
+  #cancelUpdateContactButton {
       font-weight: bold;
       color: rgb(100, 129, 209);
       border-radius: 10px;
       border-color: rgb(112, 135, 201); 
   }
   
-  #saveContactButton {
+  #saveUpdateContactButton {
       font-weight: bold;
       color: rgb(100, 129, 209);
       border-radius: 10px;

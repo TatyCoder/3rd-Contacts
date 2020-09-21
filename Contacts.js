@@ -1,9 +1,9 @@
 class Contact {
     name;
-    address; // This is an Address object
+    address;
     phone;
 
-    constructor(name, address, phone) {
+    constructor(name /* String */, address /* Address object */, phone /* String */) {
         this.name = name;
         this.address = address;
         this.phone = phone;
@@ -28,8 +28,8 @@ class Contact {
             <input type="text" name="phone" id="phone" value="${this.phone}"/>
         </form>
         <div class="actions">
-            <button id="cancelAddContactButton">Cancel</button>
-            <button id="saveContactButton">Save</button>
+            <button id="cancelUpdateContactButton">Cancel</button>
+            <button id="saveUpdateContactButton">Save</button>
         </div>
     </div>
     `;
@@ -37,17 +37,25 @@ class Contact {
         const updateForm = document.getElementById('updateForm');
         updateForm.append(updateContactElement);
 
-        // const cancelAddContactButton = document.getElementById('cancelAddContactButton' + randomID);
-        // cancelAddContactButton.addEventListener('click', this.cancelAddContactHandler.bind(this));
+// Making cancelUpdateContactButton works:
+        const cancelUpdateContactButton = document.getElementById('cancelUpdateContactButton');
+        cancelUpdateContactButton.addEventListener('click', showAllContacts);
 
-        // const saveContactButton = document.getElementById('saveContactButton' + randomID);
-        // saveContactButton.addEventListener('click', saveContactHandler.bind(null, this.name));
-
+// Making saveUpdateContactButton works:
+        const saveUpdateContactButton = document.getElementById('saveUpdateContactButton');
+        saveUpdateContactButton.addEventListener('click', this.saveUpdatedContactHandler);
     }
+    
+    saveUpdatedContactHandler = () => {
+        this.name = document.getElementById('name').value;
+        this.address.street = document.getElementById('street').value;
+        this.address.city = document.getElementById('city').value;
+        this.address.state = document.getElementById('state').value;
+        this.address.zip = document.getElementById('zip').value;
+        this.phone = document.getElementById('phone').value;
 
-    // updateContactHandler() {
-    //     console.log(this.name);
-    // }
+        showAllContacts();
+    }
 
     render() {
         const randomID = Math.random().toString();
@@ -134,8 +142,19 @@ const deleteContactHandler = (name) => {
 }
 
 const showAllContacts = () => {
+  //  const updateList = document.getElementById('contacts');
+    removeAllChildNodes('contacts');
+   // const updateForm = document.getElementById('updateForm');
+    removeAllChildNodes('updateForm');
     for (i = 0; i < contacts.length; i++) {
         contacts[i].render();
+    }
+}
+
+const removeAllChildNodes = (nodeID /* string */) => {
+    const parent = document.getElementById(nodeID);
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
     }
 }
 
