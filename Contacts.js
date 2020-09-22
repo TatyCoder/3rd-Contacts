@@ -2,6 +2,7 @@ class Contact {
     name;
     address;
     phone;
+    isNewContact = false;
 
     constructor(name /* String */, address /* Address object */, phone /* String */) {
         this.name = name;
@@ -53,6 +54,11 @@ class Contact {
         this.address.state = document.getElementById('state').value;
         this.address.zip = document.getElementById('zip').value;
         this.phone = document.getElementById('phone').value;
+
+        if (this.isNewContact === true) {
+            contacts.push(this);
+            this.isNewContact = false;
+        }
 
         showAllContacts();
     }

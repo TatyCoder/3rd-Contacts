@@ -18,6 +18,12 @@ const contacts = [
 
 console.log(contacts);
 
+const addNewContactHandler = () => {
+    const c = new Contact('', new Address('','','',''),'');
+    c.isNewContact = true;
+    c.renderUpdate();
+}
+
 const deleteContactHandler = (name) => {
     let contactIndex = 0;
     for (const contact of contacts) {
@@ -51,3 +57,6 @@ const removeAllChildNodes = (nodeID /* string */) => {
 }
 
 showAllContacts();
+
+const addNewContactButton = document.getElementById('addNewContactButton');
+addNewContactButton.addEventListener('click', addNewContactHandler);
