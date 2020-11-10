@@ -1,25 +1,22 @@
-const contacts = [
-    new Contact(
-        'Carl',
-        new Address('Ruby', 'Dawn', 'Ga', '30534'),
-        '6785551212'
-    ),
-    new Contact(
-        'Taty',
-        new Address('Lane', 'Ville', 'Ga', '30477'),
-        '4703187267'
-    ),
-    new Contact(
-        'Lila',
-        new Address('Rock', 'Garden', 'Ga', '77422'),
-        '7707707700'
-    )
-];
+let contacts = [];
 
-console.log(contacts);
+async function fetchContacts() {
+    let response = await fetch('https://phone-contacts-service-yckhe.ondigitalocean.app/getAllContacts', {method: 'GET'});
+    const contactJson = await response.json();
+    for (const cj of contactJson) {
+        const myContact = new Contact(
+            cj.name,
+            new Address(cj.address.street, cj.address.city, cj.address.state, cj.address.zip),
+            cj.phone
+        )
+        contacts.push(myContact);
+    }
+    console.log(contacts);
+    showAllContacts();
+}
 
 const addNewContactHandler = () => {
-    const c = new Contact('', new Address('','','',''),'');
+    const c = new Contact('', new Address('', '', '', ''), '');
     c.isNewContact = true;
     c.renderUpdate();
 }
@@ -40,23 +37,23 @@ const deleteContactHandler = (name) => {
 }
 
 const showAllContacts = () => {
-  //  const updateList = document.getElementById('contacts');
+    //  const updateList = document.getElementById('contacts');
     removeAllChildNodes('contacts');
-   // const updateForm = document.getElementById('updateForm');
+    // const updateForm = document.getElementById('updateForm');
     removeAllChildNodes('updateForm');
     for (i = 0; i < contacts.length; i++) {
         contacts[i].render();
     }
 }
 
-const removeAllChildNodes = (nodeID /* string */) => {
+const removeAllChildNodes = (nodeID /* string */ ) => {
     const parent = document.getElementById(nodeID);
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
 }
 
-showAllContacts();
+fetchContacts();
 
 const addNewContactButton = document.getElementById('addNewContactButton');
 addNewContactButton.addEventListener('click', addNewContactHandler);
